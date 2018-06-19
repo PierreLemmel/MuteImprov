@@ -27,8 +27,8 @@ class MainWindow(tk.Frame):
 		row += 1;
 		self.__initializeTheEndRow(row);
 
-		self.__SetupGrid(hWeights, vWeights);
-		self.__SetControlsPadding(self.childPaddingX, self.childPaddingY);
+		self.__setupGrid(hWeights, vWeights);
+		self.__setControlsPadding(self.childPaddingX, self.childPaddingY);
 
 
 
@@ -48,7 +48,7 @@ class MainWindow(tk.Frame):
 
 
 
-	def __SetupGrid(self, horizontalWeights, verticalWeights):
+	def __setupGrid(self, horizontalWeights, verticalWeights):
 		i = 0;
 		for hWeight in horizontalWeights:
 			self.columnconfigure(i, weight = hWeight);
@@ -60,7 +60,7 @@ class MainWindow(tk.Frame):
 			j += 1;
 
 
-	def __SetControlsPadding(self, padx, pady):
+	def __setControlsPadding(self, padx, pady):
 		for control in self.winfo_children():
 			control.grid_configure(padx = padx, pady = pady);
 
@@ -121,4 +121,4 @@ class MainWindow(tk.Frame):
 
 	def __onTheEndButtonClick(self, *args):
 		if self.__theEndSubmittedCallback is not None:
-			self.__simpleTextSubmittedCallback();
+			self.__theEndSubmittedCallback();
