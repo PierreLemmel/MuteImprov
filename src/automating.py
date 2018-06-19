@@ -10,10 +10,40 @@ class Controller:
 
 		print(pathToDriver);
 		self.driver = webdriver.Chrome(pathToDriver);
+		self.urlForIndex = self.__getUrlForIndex();
+		self.urlForTheEnd = self.__getUrlForTheEnd();
 
 
 	def OpenBrowser(self):
 		self.driver.get("http://www.google.com");
+
+
+	def SetSimpleText(self, text):
+		print('SetSimpleText: %s' % text);
+
+
+	def SetTimedText(self, text):
+		print('SetTimedText: %s' % text);
+
+
+	def StartTheEnd(self):
+		print('The End!');
+
+
+	def __navigateToIndexIfNeeded(self):
+		
+
+
+	def __getUrlForIndex(self):
+		basePath = os.getcwd();
+		path = os.path.join(basePath, '..\content', 'index.html');
+		return path;
+
+
+	def __getUrlForTheEnd(self):
+		basePath = os.getcwd();
+		path = os.path.join(basePath, '..\content', 'theend.html');
+		return path;
 
 
 	def __getPathToDriver(self):
@@ -33,15 +63,3 @@ class Controller:
 		path = os.path.join(basePath, '..\drivers', osFolder, driver);
 
 		return path;
-
-
-	def SetSimpleText(self, text):
-		print('SetSimpleText: %s' % text);
-
-
-	def SetTimedText(self, text):
-		print('SetTimedText: %s' % text);
-
-
-	def StartTheEnd(self):
-		print('The End!');
