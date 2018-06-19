@@ -8,7 +8,7 @@ from gui import MainWindow;
 
 
 title = "Space Gones - Histoires muettes";
-dimension = "800x600";
+dimension = "1000x600";
 
 tk = Tk();
 tk.title(title);
