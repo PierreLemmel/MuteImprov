@@ -15,14 +15,27 @@ div.frame-container {
 	background-color: black;
 }
 
-div.frame-border-root {
-	width: 90%;
-	height: 90%;
+div.frame-border-root, div.frame-text-scrollbox {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
 	top: 50%;
 	transform: translateY(-50%);
+}
+
+div.frame-border-root {
+	width: 90%;
+	height: 90%;
+}
+
+div.frame-text-scrollbox {
+	width: 78%;
+	height: 75%;
+	overflow: scroll;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
 }
 
 div.frame-border {
@@ -46,6 +59,16 @@ div.frame-text {
 	font-size: 110px;
 	font-style: italic;
 	font-family: ValeriaBoldGrunge;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.frame-text p {
+	margin: 0px;
+}
+
+.frame-text p+p {
+	margin-top: 0.5em;
 }
 
 div.the-end-img {

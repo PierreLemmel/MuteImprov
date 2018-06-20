@@ -47,7 +47,6 @@ class MainWindow(tk.Frame):
 		self.__theEndSubmittedCallback = callback;
 
 
-
 	def __setupGrid(self, horizontalWeights, verticalWeights):
 		i = 0;
 		for hWeight in horizontalWeights:
@@ -73,8 +72,8 @@ class MainWindow(tk.Frame):
 	def __initializeSimpleTextRow(self, row):
 		col = 0;
 
-		self.simpleTextLabel = tk.Label(self, anchor = tk.E, text='Saisissez un texte à afficher :');
-		self.simpleTextLabel.grid(row = row, column = col);
+		simpleTextLabel = tk.Label(self, anchor = tk.E, text='Saisissez un texte à afficher :');
+		simpleTextLabel.grid(row = row, column = col);
 		col += 1;
 
 		self.simpleTextEntry = tk.Text(self, width = 0);
@@ -88,8 +87,8 @@ class MainWindow(tk.Frame):
 	def __initializeTimedTextRow(self, row):
 		col = 0;
 
-		self.timedTextLabel = tk.Label(self, anchor = tk.E, text='Saisissez un texte à faire défiler :');
-		self.timedTextLabel.grid(row = row, column = col);
+		timedTextLabel = tk.Label(self, anchor = tk.E, text='Saisissez un texte à faire défiler :');
+		timedTextLabel.grid(row = row, column = col);
 		col += 1;
 
 		self.timedTextEntry = tk.Text(self, width = 0);
@@ -106,15 +105,13 @@ class MainWindow(tk.Frame):
 
 
 	def __onSimpleTextClick(self, *args):
-		# @TODO: get text value
-		text = "OnSimpleTextClick";
+		text = self.simpleTextEntry.get('1.0', 'end-1c');
 		if self.__simpleTextSubmittedCallback is not None:
 			self.__simpleTextSubmittedCallback(text);
 
 
 	def __onTimedTextClick(self, *args):
-		# @TODO: get text value
-		text = "OnTimedTextClick";
+		text = self.timedTextEntry.get('1.0', 'end-1c');
 		if self.__timedTextSubmittedCallback is not None:
 			self.__timedTextSubmittedCallback(text);
 
