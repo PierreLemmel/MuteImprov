@@ -9,10 +9,34 @@ html, body {
 	margin:0px;
 }
 
+div.black-default-background, div.fullscreen-video-background {
+    position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+div.black-default-background {
+	background-color: black;
+	z-index: -200;
+}
+
+div.fullscreen-video-background {
+    z-index: -100;
+}
+
+video.fullscreen-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
 div.frame-container {
 	width: 100%;
 	height: 100%;
-	background-color: black;
+	transform: translate(0%, 0%);
 }
 
 div.frame-border-root, div.frame-text-scrollbox {

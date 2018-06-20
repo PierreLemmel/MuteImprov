@@ -9,13 +9,16 @@ const MuteImprov = (function() {
 		}
 	};
 
+	const clearText = function() {
+		$('div.frame-text').empty();
+	}
+
 	const setTextImmediate = function(text) {
 		clearTimeoutIfNeeded();
+		clearText();
 
 		const paragraphs = text.split('\n');
 		const div = $('div.frame-text')
-		div.empty();
-
 		paragraphs.forEach(function(paragraph) {
 			const pElt = $('<p></p>');
 			pElt.text(paragraph);
@@ -23,8 +26,9 @@ const MuteImprov = (function() {
 		});
 	};
 
-	const setTextTimed = async function(text, minDelay, maxDelay) {
+	const setTextTimed = function(text, minDelay, maxDelay) {
 		clearTimeoutIfNeeded();
+		clearText();
 
 		if (maxDelay == null) {
 			maxDelay = minDelay;
@@ -36,46 +40,61 @@ const MuteImprov = (function() {
 			maxDelay = tmp;
 		}
 
-		const paragraphs = text.split('\n');
+		let rawGroups = text.split('//');
+		rawGroups.reverse();
+
+		let groups = [];
+		rawGroups.forEach(function(rawGroup) {
+			let paragraphs = rawGroup.split('\n');
+			paragraphs.reverse();
+			groups.push(paragraphs);
+		})
 
 		const divElt = $('div.frame-text');
-		divElt.empty();
-
 		const scrollBox = $('div.frame-text-scrollbox');
 
-		let charIndex = 0;
-		let paragraphIndex = 0;
+		let currentGroup = groups.pop();
+		let currentParagraph = currentGroup.pop();
 		let currentParagraphElt = null;
+		let charIndex = 0;
 
-		console.log(paragraphs);
 		const timeoutFunction = function() {
-			console.log(charIndex);
-			if (paragraphIndex < paragraphs.length) {
+			
+			console.log(currentParagraph);
+			if (currentParagraph !== undefined) {
 
-				const paragraph = paragraphs[paragraphIndex];
-				console.log(paragraph);
-				if (charIndex < paragraph.length) {
+				if (charIndex < currentParagraph.length) {
 
 					if (charIndex == 0) {
-						console.log('new element!');
 						currentParagraphElt = $('<p></p>');
 						divElt.append(currentParagraphElt);
 					}
 
-					currentParagraphElt.append(paragraph[charIndex]);
+					currentParagraphElt.append(currentParagraph[charIndex]);
 
 					charIndex++;
 				}
 				else {
-					paragraphIndex++;
+					currentParagraph = currentGroup.pop();
 					charIndex = 0;
 				}
-
-				const nextDelay = minDelay + Math.random() * (maxDelay - minDelay);
-				timeout = setTimeout(timeoutFunction, nextDelay);
-
-				scrollBox.scrollTop(scrollBox[0].scrollHeight);
 			}
+			else {
+				currentGroup = groups.pop();
+				currentParagraph = currentGroup.pop();
+				if (currentGroup === undefined) {
+					return;
+				}
+
+				console.log(currentGroup);
+				divElt.empty();
+			}
+
+			const r = Math.random();
+			const nextDelay = r * minDelay + (1.0 - r ) * maxDelay;
+			timeout = setTimeout(timeoutFunction, nextDelay);
+
+			scrollBox.scrollTop(scrollBox[0].scrollHeight);
 		};
 
 		timeoutFunction();

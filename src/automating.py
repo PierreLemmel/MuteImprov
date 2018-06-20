@@ -1,4 +1,5 @@
 import os;
+import unidecode;
 from sys import platform;
 from selenium import webdriver;
 from selenium.webdriver.common.by import By;
@@ -43,6 +44,8 @@ class Controller:
 	def __escapeText(self, text):
 		escapedText = text.replace('"', '\\"');
 		escapedText = escapedText.replace('\n', '\\n');
+		escapedText = unidecode.unidecode(escapedText);
+
 		return escapedText;
 
 
